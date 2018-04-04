@@ -1,0 +1,20 @@
+{
+    "name": "mywind/pay",
+    "type": "library",
+    "description": "api apy",
+    "keywords": [],
+    "license": "MIT",
+    "support": {
+    },
+    "authors": [
+        {
+            "name": "yangdong"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Pay\\": "src/client/"
+        }
+    }
+}
