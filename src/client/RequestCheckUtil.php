@@ -8,7 +8,7 @@ namespace Pay;
  */
 class RequestCheckUtil
 {
-    public static function checkEmpty($value)
+    private static function checkEmpty($value)
     {
         if(!isset($value))
             return true ;

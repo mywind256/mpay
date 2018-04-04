@@ -11,7 +11,7 @@ class Client
 {
     public $key;
 
-    public $gatewayUrl = "http://pay.com/";
+    public $gatewayUrl;//请求接口地址
 
     public $checkRequest = true; //参数验证开关
 
@@ -19,9 +19,10 @@ class Client
 
     public $readTimeout;
 
-    public function __construct($key)
+    public function __construct($key, $gatewayUrl)
     {
         $this->key = $key;
+        $this->key = $gatewayUrl;
     }
 
     /**
@@ -32,13 +33,18 @@ class Client
     public function generateSign($params)
     {
         $signString = '';
-        foreach ($params as $key=>$v) {
-            $signString .= $key;
+        foreach ($params as $k=>$v) {
+            $signString .= $k;
         }
 
-        return md5($signString);
+        return md5($signString.$this->key);
     }
 
+    /**
+     * 执行请求
+     * @param $request
+     * @return mixed|Result
+     */
     public function execute($request)
     {
         $result =  new Result();
@@ -56,14 +62,9 @@ class Client
         //签名
         $sysParams["sign"] = $this->generateSign($apiParams);
         //发起HTTP请求
-
-        try
-        {
-            $requestUrl = $this->gatewayUrl.$result->getApiUrlName;
-            $resp = $this->curl($requestUrl, $apiParams);
-        }
-        catch (\Exception $e)
-        {
+        try{
+            $resp = $this->curl($this->gatewayUrl, $apiParams);
+        }catch (\Exception $e){
             $result->code = $e->getCode();
             $result->msg = $e->getMessage();
             return $result;

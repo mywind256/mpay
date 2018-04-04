@@ -1,16 +1,15 @@
 <?php
 /**
- * 请求支付接口
+ * 提现申请
  * User: yangdong
  * Date: 2018/4/4
- * Time: 上午11:22
+ * Time: 下午4:43
  */
-
 namespace Pay\request;
 
 use Pay\RequestCheckUtil;
 
-class PayRequest
+class WithdrawRequest
 {
     /**
      * @sting required 商户ID
@@ -25,14 +24,14 @@ class PayRequest
      */
     private $reqts;
     /**
-     * @string required 参数 1-Alipay,2-AlipayH5,3-Weixin,4-WeixinH5
+     * @string required 姓名
      */
-    private $type;
+    private $cdname;
 
     /**
-     * @string required 商品名称
+     * @string required 卡号
      */
-    private $name;
+    private $cdno;
     /**
      * @string required 交易金额(元,保留两位小数)
      */
@@ -86,35 +85,35 @@ class PayRequest
     /**
      * @return mixed
      */
-    public function getType()
+    public function getCdname()
     {
-        return $this->type;
+        return $this->cdname;
     }
 
     /**
-     * @param mixed $type
+     * @param mixed $cdname
      */
-    public function setType($type)
+    public function setCdname($cdname)
     {
-        $this->type = $type;
-        $this->apiParas['type'] = $type;
+        $this->cdname = $cdname;
+        $this->apiParas['cdname'] = $cdname;
     }
 
     /**
      * @return mixed
      */
-    public function getName()
+    public function getCdno()
     {
-        return $this->name;
+        return $this->cdno;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $cdno
      */
-    public function setName($name)
+    public function setCdno($cdno)
     {
-        $this->name = $name;
-        $this->apiParas['name'] = $name;
+        $this->cdno = $cdno;
+        $this->apiParas['cdno'] = $cdno;
     }
 
     /**
@@ -161,8 +160,8 @@ class PayRequest
         RequestCheckUtil::checkNotNull($this->merid, "merid");
         RequestCheckUtil::checkNotNull($this->reqid, "reqid");
         RequestCheckUtil::checkNotNull($this->reqts, "reqts");
-        RequestCheckUtil::checkNotNull($this->type, "type");
-        RequestCheckUtil::checkNotNull($this->name, "name");
+        RequestCheckUtil::checkNotNull($this->cdname, "cdname");
+        RequestCheckUtil::checkNotNull($this->cdno, "cdno");
         RequestCheckUtil::checkNotNull($this->money, "money");
         RequestCheckUtil::checkNotNull($this->returl, "returl");
     }
